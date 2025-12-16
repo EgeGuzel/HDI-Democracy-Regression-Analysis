@@ -80,7 +80,7 @@ This study employs an Ordinary Least Squares (OLS) regression model to quantify 
 
 <img width="1600" height="625" alt="Code_Generated_Image" src="https://github.com/user-attachments/assets/a51530b7-c0db-4c29-8625-f53c9c95aaff" />
 
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Signif. codes:  0 ‘ * * * ’ 0.001 ‘ * * ’ 0.01 ‘ * ’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Residual standard error: 0.03282 on 47 degrees of freedom
 Multiple R-squared:  0.8977,	Adjusted R-squared:  0.8868 
