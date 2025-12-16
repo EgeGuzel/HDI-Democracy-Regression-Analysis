@@ -34,9 +34,10 @@ The dataset consists of observations for over 50 countries, standardized for the
 ## How to Run
 1. Clone this repository to your local machine.
 2. Ensure you have R and RStudio installed.
-3. Place the following datasets in the data/ folder (or the root directory): hdi_2023.csv, v_dem.csv, gini_index.csv, infant_mortality.csv, urban_rate.csv, gov_effect.csv.
-4. Open "Project.R". The script will automatically check for and install missing packages (tidyverse, countrycode, sandwich, etc.).
-5. Run the script to generate the models and plots.
+3. Place the following datasets in the data/ folder (or the root directory): hdi_2023.csv, v_dem.csv.zip, gini_index.csv, infant_mortality.csv, urban_rate.csv, gov_effect.csv.
+4. Unzip the d_dem.csv.zip folder.
+5. Open "Project.R". The script will automatically check for and install missing packages (tidyverse, countrycode, sandwich, etc.).
+6. Run the script to generate the models and plots.
 
 # Results & Visualizations
 The following visualizations offer a comprehensive look at the data's distribution, the individual impact of each predictor, and the overall diagnostic health of our statistical model.
