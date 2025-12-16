@@ -1,4 +1,5 @@
-required_packages <- c("tidyverse", "countrycode", "broom", "sandwich", "lmtest", "car", "modelsummary")
+required_packages <- c("tidyverse", "countrycode", "broom", "sandwich", "lmtest", "car", "modelsummary",
+                       "equatiomatic", "ggplot2")
 new_packages <- required_packages[!(required_packages %in% installed.packages()[,"Package"])]
 if(length(new_packages)) {install.packages(new_packages, dependencies = TRUE)}
 invisible(sapply(required_packages, library, character.only = TRUE))
@@ -30,7 +31,7 @@ v_dem <- v_dem %>%
   distinct(iso3, .keep_all = TRUE)
 
 #INCOME EQUALITY INDEX
-gini <- read_csv("gini.csv", skip = 4, show_col_types = FALSE)
+gini <- read_csv("gini_index.csv", skip = 4, show_col_types = FALSE)
 gini <- gini %>%
   select(iso3 = `Country Code`, gini = `2023`) %>%
   mutate(gini = as.numeric(gini)) %>%
@@ -140,3 +141,28 @@ plot(model_final)
 par(mfrow = c(1, 1)) #RESIDUALS GRAPHS
 
 bptest(model_final) #BPTEST
+
+#FITTED MODEL EQUATION
+cf <- round(coef(model_final), 4)
+equation <- paste0("HDI = ", cf[1], 
+                   " + ", cf[2], "(Democracy Index)",
+                   " + ", cf[3], "(Goverment Effeciency)",
+                   " + ", cf[4], "(Gini Index)",
+                   " + ", cf[5], "(Infant Mortality Rate)",
+                   " + ", cf[6], "(Urbanization Level)",
+                   " + epsilon")
+equation
+
+#VIF VALUES
+vif_values <- vif(model_final) 
+vif_df <- data.frame(Variable = names(vif_values), VIF = vif_values)
+
+ggplot(vif_df, aes(x = reorder(Variable, VIF), y = VIF)) +
+  geom_bar(stat = "identity", fill = ifelse(vif_df$VIF > 5, "red", "steelblue")) +
+  geom_hline(yintercept = 5, linetype = "dashed", color = "darkred", size = 1) + # Eşik çizgisi
+  coord_flip() + # Yatay çevir
+  theme_minimal() +
+  labs(title = "Variance Inflation Factor (VIF) Results",
+       subtitle = "Threshold of 5 indicates potential multicollinearity",
+       x = "Variables",
+       y = "VIF Value")
